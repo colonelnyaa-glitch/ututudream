@@ -6,6 +6,23 @@ local function showHelpNotification(message)
     EndTextCommandDisplayHelp(0, false, true, -1)
 end
 
+local function showNotification(message)
+    BeginTextCommandThefeedPost('STRING')
+    AddTextComponentSubstringPlayerName(message)
+    EndTextCommandThefeedPostTicker(false, false)
+end
+
+local function getInteractionConfig()
+    return Config.Interaction or {}
+end
+
+local function formatHelpMessage(message)
+    local interactionConfig = getInteractionConfig()
+    local keyLabel = interactionConfig.KeyLabel or 'E'
+
+    return message:gsub('{key}', keyLabel)
+end
+
 local function getLocations()
     if type(Config.Locations) ~= 'table' then
         return {}
@@ -124,6 +141,7 @@ CreateThread(function()
 
         local closestHelpMessage = nil
         local closestHelpDistance = nil
+        local closestLocation = nil
 
         for _, location in ipairs(getLocations()) do
             if hasValidCoords(location) then
@@ -142,7 +160,8 @@ CreateThread(function()
                         if distance <= interactDistance and location.helpMessage then
                             if not closestHelpDistance or distance < closestHelpDistance then
                                 closestHelpDistance = distance
-                                closestHelpMessage = location.helpMessage
+                                closestHelpMessage = formatHelpMessage(location.helpMessage)
+                                closestLocation = location
                             end
                         end
                     end
@@ -152,6 +171,13 @@ CreateThread(function()
 
         if closestHelpMessage then
             showHelpNotification(closestHelpMessage)
+
+            local interactionConfig = getInteractionConfig()
+            local control = interactionConfig.Control or 38
+
+            if closestLocation and IsControlJustReleased(0, control) then
+                showNotification(interactionConfig.NotificationMessage or 'Marker interaction triggered.')
+            end
         end
 
         Wait(sleep)

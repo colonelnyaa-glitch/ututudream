@@ -50,6 +50,12 @@ Each location supports:
 - `blip.color` - Blip color ID.
 - `blip.shortRange` - Whether the blip is short range.
 
+Global interaction settings:
+
+- `Config.Interaction.Control` - FiveM control ID used for client-only interaction. The default is `38` for E.
+- `Config.Interaction.KeyLabel` - Key label inserted into help messages using `{key}`.
+- `Config.Interaction.NotificationMessage` - Client-only notification shown when the interaction key is pressed near the nearest valid marker.
+
 ## Testing
 
 1. Start the resource.
@@ -57,7 +63,8 @@ Each location supports:
 3. Visit one of the configured locations.
 4. Confirm the marker only appears when close enough.
 5. Move near the marker and confirm the help notification appears.
-6. Stop or restart the resource and confirm created blips are removed.
+6. Press E near the marker and confirm the client-only notification appears.
+7. Stop or restart the resource and confirm created blips are removed.
 
 ## Dependencies
 
@@ -79,3 +86,4 @@ None. This resource is standalone and does not require ESX, QBCore, ox_lib, ox_i
 - No permission system.
 - No database access.
 - No server events.
+- Interaction is client-only and does not grant money, items, weapons, jobs, or permissions.

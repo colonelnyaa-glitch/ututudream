@@ -5,11 +5,17 @@ Config.DefaultInteractDistance = 2.0
 Config.FarWait = 1000
 Config.NearWait = 0
 
+Config.Interaction = {
+    Control = 38,
+    KeyLabel = 'E',
+    NotificationMessage = 'Client-only marker interaction triggered.'
+}
+
 Config.Locations = {
     {
         name = 'Legion Square Test Marker',
         coords = vector3(215.76, -810.12, 30.73),
-        helpMessage = 'Press ~INPUT_CONTEXT~ to test the Legion Square marker.',
+        helpMessage = 'Press {key} to test the Legion Square marker.',
         marker = {
             enabled = true,
             drawDistance = 25.0,
@@ -39,7 +45,7 @@ Config.Locations = {
     {
         name = 'Sandy Shores Test Marker',
         coords = vector3(1853.62, 3688.79, 34.27),
-        helpMessage = 'Press ~INPUT_CONTEXT~ to test the Sandy Shores marker.',
+        helpMessage = 'Press {key} to test the Sandy Shores marker.',
         marker = {
             enabled = true,
             drawDistance = 30.0,
@@ -69,7 +75,7 @@ Config.Locations = {
     {
         name = 'Paleto Bay Test Marker',
         coords = vector3(-103.49, 6477.59, 31.63),
-        helpMessage = 'Press ~INPUT_CONTEXT~ to test the Paleto Bay marker.',
+        helpMessage = 'Press {key} to test the Paleto Bay marker.',
         marker = {
             enabled = true,
             drawDistance = 30.0,
