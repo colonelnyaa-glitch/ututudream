@@ -70,6 +70,9 @@ No ESX, ox_lib, ox_inventory, database resource, or other dependency is used.
 - The server reads job data only from the QBCore player object.
 - The server sends the result only to the same source that requested it.
 - A small per-source server cooldown is included.
+- QBCore object lookup is protected with a resource state check and `pcall`.
+- If `qb-core` is unavailable or `GetPlayer` is missing, the server sends a safe error message to the requesting player.
+- The server also prints a warning to the console when QBCore is unavailable.
 - This resource does not add money.
 - This resource does not add items.
 - This resource does not add weapons.
