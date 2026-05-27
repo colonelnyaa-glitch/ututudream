@@ -39,6 +39,20 @@ Provider behavior:
 - `ox_lib` uses `lib.notify` only when the `lib` table and `lib.notify` function are available.
 - If `ox_lib` is selected but `lib.notify` is not available, the script falls back to native notification.
 
+## Client Export
+
+Other client resources can call the adapter with:
+
+```lua
+exports['msc_notify_adapter_test']:notify({
+    title = 'Example',
+    description = 'Called from another client resource.',
+    type = 'inform'
+})
+```
+
+The export uses the same `Config.NotifyProvider` setting and native fallback behavior as `/testnotify`.
+
 ## Testing
 
 1. Start the resource.

@@ -101,6 +101,8 @@ local function notify(notification)
     showNativeNotification(getNativeMessage(notification))
 end
 
+exports('notify', notify)
+
 RegisterCommand(getCommandName(), function()
     notify(getTestNotification())
 end, false)
