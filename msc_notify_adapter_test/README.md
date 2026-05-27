@@ -79,6 +79,8 @@ None by default.
 
 `ox_lib` is optional. This resource does not require it unless you choose to expose and use `lib.notify` in your server environment.
 
+This resource intentionally does not load `@ox_lib/init.lua` in `fxmanifest.lua`. `Config.NotifyProvider = 'ox_lib'` only uses `lib.notify` when it is already available in the client environment. The default provider remains `native`, and native notification is used as fallback. If guaranteed `ox_lib` integration is required, create a separate strict `ox_lib` version instead of changing this standalone-compatible resource.
+
 ## Safety Notes
 
 - Client-side notification only.
