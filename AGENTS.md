@@ -608,6 +608,32 @@ Before sending the final response:
 5. Use the required final response format once.
 6. If a section has no important content, omit it or write "なし".
 7. Prefer clear Japanese explanations for the final user-facing report.
+
+## QBCore Resource Rules
+
+When creating QBCore resources:
+
+1. Document `qb-core` as a required dependency.
+2. Ensure `qb-core` starts before the resource.
+3. Use `QBCore.Functions.GetPlayer(source)` on the server for player data.
+4. Check that QBCore, `QBCore.Functions`, and `QBCore.Functions.GetPlayer` are available before use.
+5. If `qb-core` is unavailable, return a safe message to the requesting player and print a clear server warning.
+6. Do not trust client-provided job, grade, money, item, weapon, or permission values.
+7. Do not add money, items, weapons, job changes, grade changes, permissions, or database logic unless explicitly requested and safely validated.
+
+## ESX Resource Rules
+
+When creating ESX resources:
+
+1. Document `es_extended` as a required dependency.
+2. Ensure `es_extended` starts before the resource.
+3. State whether the resource targets ESX Legacy export-based shared object access.
+4. Use `ESX.GetPlayerFromId(source)` on the server for player data.
+5. Check that ESX, `ESX.GetPlayerFromId`, and xPlayer job methods are available before use.
+6. If `es_extended` is unavailable, return a safe message to the requesting player and print a clear server warning.
+7. Do not trust client-provided job, grade, money, item, weapon, or permission values.
+8. Do not add money, items, weapons, job changes, grade changes, permissions, or database logic unless explicitly requested and safely validated.
+
 ## Permission and Admin Command Rules
 
 When creating admin or permission-based commands:
