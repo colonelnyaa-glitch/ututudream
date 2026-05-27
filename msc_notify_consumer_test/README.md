@@ -58,6 +58,7 @@ Consumer Test: This notification was called from another resource.
 ## Notes
 
 - Client-side notification test only.
+- If `msc_notify_adapter_test` is not started, `/consumernotify` shows a native warning notification and prints a console warning instead of calling the export.
 - No `server.lua` is included because no server logic is needed.
 - No money handling.
 - No item handling.
