@@ -13,14 +13,46 @@ local function showNotification(message)
 end
 
 local function getInteractionConfig()
-    return Config.Interaction or {}
+    if type(Config.Interaction) ~= 'table' then
+        return {}
+    end
+
+    return Config.Interaction
 end
 
 local function formatHelpMessage(message)
+    if type(message) ~= 'string' or message == '' then
+        message = 'Press {key} to interact with this marker.'
+    end
+
     local interactionConfig = getInteractionConfig()
     local keyLabel = interactionConfig.KeyLabel or 'E'
 
+    if type(keyLabel) ~= 'string' or keyLabel == '' then
+        keyLabel = 'E'
+    end
+
     return message:gsub('{key}', keyLabel)
+end
+
+local function getInteractionControl()
+    local control = getInteractionConfig().Control
+
+    if type(control) ~= 'number' then
+        return 38
+    end
+
+    return control
+end
+
+local function getNotificationMessage()
+    local message = getInteractionConfig().NotificationMessage
+
+    if type(message) ~= 'string' or message == '' then
+        return 'Marker interaction triggered.'
+    end
+
+    return message
 end
 
 local function getLocations()
@@ -157,10 +189,12 @@ CreateThread(function()
 
                         local interactDistance = markerConfig.interactDistance or Config.DefaultInteractDistance or 2.0
 
-                        if distance <= interactDistance and location.helpMessage then
+                        if distance <= interactDistance then
+                            local helpMessage = formatHelpMessage(location.helpMessage)
+
                             if not closestHelpDistance or distance < closestHelpDistance then
                                 closestHelpDistance = distance
-                                closestHelpMessage = formatHelpMessage(location.helpMessage)
+                                closestHelpMessage = helpMessage
                                 closestLocation = location
                             end
                         end
@@ -172,11 +206,8 @@ CreateThread(function()
         if closestHelpMessage then
             showHelpNotification(closestHelpMessage)
 
-            local interactionConfig = getInteractionConfig()
-            local control = interactionConfig.Control or 38
-
-            if closestLocation and IsControlJustReleased(0, control) then
-                showNotification(interactionConfig.NotificationMessage or 'Marker interaction triggered.')
+            if closestLocation and IsControlJustReleased(0, getInteractionControl()) then
+                showNotification(getNotificationMessage())
             end
         end
 
