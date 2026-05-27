@@ -53,6 +53,13 @@ exports['msc_notify_adapter_test']:notify({
 
 The export uses the same `Config.NotifyProvider` setting and native fallback behavior as `/testnotify`.
 
+Ensure this adapter before any resource that calls the export:
+
+```cfg
+ensure msc_notify_adapter_test
+ensure your_other_resource
+```
+
 ## Testing
 
 1. Start the resource.
